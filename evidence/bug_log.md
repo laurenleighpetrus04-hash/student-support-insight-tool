@@ -2,6 +2,10 @@
 
 | Bug ID | Issue | Cause | Fix | Status |
 |---|---|---|---|---|
-| B001 | App failed when synthetic dataset was missing | The app expected the CSV file to already exist | Added clear error message telling user to run the data script | Fixed |
-| B002 | Duplicate learner IDs were not detected | Duplicate validation was missing | Added duplicate check on learner_id | Fixed |
-| B003 | Invalid confidence scores were accepted | No range validation existed | Added validation for scores from 1 to 5 | Fixed |
+| B001 | App failed when the synthetic dataset was missing | The app expected `data/synthetic_learners.csv` to already exist | Added a clear error message telling the user to run `python scripts/create_sample_data.py` | Fixed |
+| B002 | Duplicate learner IDs were not detected | Duplicate validation was missing | Added duplicate checking using `df["learner_id"].duplicated()` | Fixed |
+| B003 | Invalid confidence scores were accepted | No score range validation existed | Added validation to check that confidence scores are numeric and between 1 and 5 | Fixed |
+
+## Refactoring Evidence
+
+The prototype separates work into focused functions such as `load_data`, `validate_data`, `clean_data`, `calculate_risk_score`, `generate_insights`, and `generate_recommendations`. This keeps the MVP understandable and easier to test.
